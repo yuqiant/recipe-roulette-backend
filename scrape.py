@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import json
 
 
+
 def handler(event, context):
     keyword = event['keyword']
     result = scrape(keyword)
@@ -49,5 +50,5 @@ def scrape(keyword):
 
 
 if __name__ == '__main__':
-    scrape('keyword')
+    handler(event, None)
 
