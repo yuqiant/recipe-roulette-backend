@@ -10,3 +10,6 @@ local
 
 # builds
 *.zip
+dist
+package
+Deps
