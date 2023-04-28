@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 import json
 
 
-
 def handler(event, context):
     keyword = event['keyword']
     result = scrape(keyword)
@@ -11,23 +10,18 @@ def handler(event, context):
     return ret
 
 
-
-
 def scrape(keyword):
-
-    headers={
-    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36'
-    }
+    headers = {
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/85.0.4183.102 Safari/537.36'}
     # Send a GET request to the URL
-    response = requests.get(f'https://www.lezuocai.com/so/{keyword}/',headers= headers)
-
+    response = requests.get(f'https://www.lezuocai.com/so/{keyword}/', headers=headers)
 
     # Parse the HTML content of the response using BeautifulSoup
     soup = BeautifulSoup(response.text, 'html.parser')
 
     # Find all the recipe items on the page
     recipe_items = soup.select('body > section > div.search-list > ul > li')
-
 
     # Loop through the recipe items and extract the relevant data
     recipes = []
@@ -42,9 +36,9 @@ def scrape(keyword):
             ingredient = item_ingredient.find('td', class_='ings-name').text.strip()
             ingredients.append(ingredient)
 
-
         thumbnail_href = item.find('img')['src']
-        recipe = {'title': title,  'link_to_recipe': link_to_recipe, 'thumbnail': thumbnail_href, 'ingredients': ingredients}
+        recipe = {'title': title, 'link_to_recipe': link_to_recipe, 'thumbnail': thumbnail_href,
+                  'ingredients': ingredients}
         recipes.append(recipe)
 
     print(recipes)
@@ -57,4 +51,3 @@ def scrape(keyword):
 
 if __name__ == '__main__':
     handler(event, None)
-
