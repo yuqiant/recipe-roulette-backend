@@ -1,0 +1,51 @@
+name: Deploy to AWS Lambda
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Package code
+        run: |
+          ./build.sh
+
+      - name: Upload code to S3
+        run: |
+          aws s3 cp dist.zip s3://recipe-roulette-backend/dist.zip
+
+      - name: Update AWS Lambda function
+        run: |
+          aws lambda update-function-code \
+            --function-name RecipeScrape \
+            --s3-bucket recipe-roulette-backend \
+            --s3-key dist.zip
+
+      - name: Clean up
+        run: |
+          rm -rf dist.zip
+
