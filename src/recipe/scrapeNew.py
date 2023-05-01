@@ -3,7 +3,12 @@ from bs4 import BeautifulSoup
 import json
 
 
+
 def handler(event, context):
+    # if statements for the functions
+    # union of two functions
+
+
     keyword = event['keyword']
     result = scrape(keyword)
     ret = json.dumps(result)
