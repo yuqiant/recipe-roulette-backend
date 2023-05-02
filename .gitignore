@@ -3,3 +3,13 @@
 
 .DS_Store
 .DS_Store?
+
+# local db or settings
+*venv
+local
+
+# builds
+*.zip
+dist
+package
+Deps
