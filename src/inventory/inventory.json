@@ -3,13 +3,3 @@
     "user2": ["flour", "butter", "eggs"]
 }
 
-{
-    "user1": {
-        "ingredients": [
-            {
-                "name": "egg",
-                "quantity": 1
-            }
-        ]
-    }
-}
