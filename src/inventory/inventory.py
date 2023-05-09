@@ -1,59 +1,80 @@
 import json
+from src.doa.db_manager import DBManager
 
 
+# parse input and call dbmanager
+class Inventory:
+    def __init__(self, db_manager):
+        self.db_manager = db_manager
 
-def handler(event, context):
-    user_id = event["userId"]
-    ingredient_name = event["ingredient"]
-    action = event["action"]
-    result = update_inventory(user_id, ingredient_name, action)
-    ret = json.dumps(result)
-    return ret
+    def handler(self, event, context):
+        user_id = event["userId"]
+        ingredient_name = event["ingredient"]
+        action = event["action"]
+
+        if action not in ["add", "remove"]:
+            raise ValueError(f"Invalid action: {action}")
+        if not isinstance(ingredient_name, str):
+            raise ValueError(f"Invalid ingredient_name: {ingredient_name}")
+
+        if action == "add" or action == "remove":
+            self.db_manager.update_inventory(user_id, ingredient_name, action)
+
+        result = self.db_manager.inventory().read(user_id)
+        ret = json.dumps(result)
+        return ret
+
+
+# def handler(event, context):
+#     user_id = event["userId"]
+#     ingredient_name = event["ingredient"]
+#     action = event["action"]
+#     result = update_inventory(user_id, ingredient_name, action)
+#     ret = json.dumps(result)
+#     return ret
 
 
 
 
 #data as a dictionary
-def update_inventory(user_id, ingredient_name, action):
-    #user_id = data["userId"]
-    #ingredient_name = data["ingredient"]
-    #action = data["action"]
-
-    # load the inventory from the JSON file
-    with open("inventory.json", "r") as file:
-        inventory = json.loads(file)
-
-    # check if the user exists in the inventory
-    if user_id not in inventory:
-        raise ValueError(f"User {user_id} does not exist in the inventory.")
-        # follow up - register pop up or ??
-
-    # get the current inventory of the users
-    user_inventory = inventory[user_id]
-
-    # type of input error check
-    if action == "add" and ingredient_name in user_inventory:
-        raise ValueError(f"{ingredient_name} already exists in user {user_id}'s inventory.")
-    elif action == "remove" and ingredient_name not in user_inventory:
-        raise ValueError(f"{ingredient_name} does not exist in user {user_id}'s inventory.")
-
-    # update the inventory
-    if action == "add":
-        user_inventory.append(ingredient_name)
-    elif action == "remove":
-        user_inventory.remove(ingredient_name)
-
-    inventory[user_id] = user_inventory
-
-    # write the updated inventory dictionary with the new inventory
-    with open("inventory.json", "w") as file:
-        json.dump(inventory, file)
-
-    return inventory
-
-
+# def update_inventory(user_id, ingredient_name, action):
+#     #user_id = data["userId"]
+#     #ingredient_name = data["ingredient"]
+#     #action = data["action"]
+#
+#     # load the inventory from the JSON file
+#     with open("inventory.json", "r") as file:
+#         inventory = json.loads(file)
+#
+#     # check if the user exists in the inventory
+#     if user_id not in inventory:
+#         raise ValueError(f"User {user_id} does not exist in the inventory.")
+#         # follow up - register pop up or ??
+#
+#     # get the current inventory of the users
+#     user_inventory = inventory[user_id]
+#
+#     # type of input error check
+#     if action == "add" and ingredient_name in user_inventory:
+#         raise ValueError(f"{ingredient_name} already exists in user {user_id}'s inventory.")
+#     elif action == "remove" and ingredient_name not in user_inventory:
+#         raise ValueError(f"{ingredient_name} does not exist in user {user_id}'s inventory.")
+#
+#     # update the inventory
+#     if action == "add":
+#         user_inventory.append(ingredient_name)
+#     elif action == "remove":
+#         user_inventory.remove(ingredient_name)
+#
+#     inventory[user_id] = user_inventory
+#
+#     # write the updated inventory dictionary with the new inventory
+#     with open("inventory.json", "w") as file:
+#         json.dump(inventory, file)
+#
+#     return inventory
 
 
 
-if __name__ == '__main__':
-    main()
+
+

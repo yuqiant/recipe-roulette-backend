@@ -11,7 +11,10 @@ class JSONDB:
         self.update(key, value)
 
     def read(self, key):
-        return self.__read_file()[key]
+        try:
+            return self.__read_file()[key]
+        except KeyError:
+            return None
 
     def update(self, key, new_value):
         db = self.__read_file()
@@ -20,7 +23,10 @@ class JSONDB:
 
     def destroy(self, key):
         db = self.__read_file()
-        del db[key]
+        try:
+            del db[key]
+        except KeyError:
+            pass
         self.__write_file(json.dumps(db))
 
     def __read_file(self, ):
