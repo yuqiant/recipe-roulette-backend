@@ -1,4 +1,4 @@
-from local_db import JSONDB
+from doa.local_db import JSONDB
 
 
 class DBManager:
