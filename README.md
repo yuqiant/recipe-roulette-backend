@@ -2,12 +2,17 @@
 
 To set up the repo for local development, follow the steps:
 
-1. Clone the repo
-2. Create a virtual environment (my python version is 3.9, versions around that should be fine?)
-3. Once you have the venv created, run `source venv/bin/activate` to activate the venv
+1. Clone the repo.
+2. Create a virtual environment (my python version is 3.9, versions around that should be fine?).
+3. Once you have the venv created, run `source venv/bin/activate` to activate the venv.
 4. Run `pip install -r requirements.txt` to install dependencies, use pip3 if needed (should not be needed if you have
-   venv activated)
-5. Start coding :)
+   venv activated).
+5. Install MongoDB community edition if not
+   already [from here for mac](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/
+   ).
+6. Create a .env file and put the value `ENV="DEV"` and `MONGODB_URI_DEV = "mongodb://localhost:27017"` to connect to
+   local MongoDB client.
+7. Start coding 🚀
 
 # Structure
 
