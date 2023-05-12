@@ -1,29 +1,44 @@
 import json
-from src.doa.db_manager import DBManager
+from dao.db_manager import DBManager
+from model.ingredient import Ingredient
 
 
 # parse input and call dbmanager
 class Inventory:
-    def __init__(self, db_manager):
+    def __init__(self, db_manager: DBManager):
+        self.collection = db_manager.get_collection("ingredients")
         self.db_manager = db_manager
 
     def handler(self, event, context):
-        user_id = event["userId"]
-        ingredient_name = event["ingredient"]
-        action = event["action"]
+        '''
+            example of how we can perform queries on the collection
+        '''
+        ingredient = Ingredient.load(self.collection.find_one(
+            {"ingredientName": "chicken leg"}))
 
-        if action not in ["add", "remove"]:
-            raise ValueError(f"Invalid action: {action}")
-        if not isinstance(ingredient_name, str):
-            raise ValueError(f"Invalid ingredient_name: {ingredient_name}")
+        print(ingredient)
+        # example output
+        # {"_id": "ObjectId(645eabb31408d7bd1e4c4935)", "category": "Meat", "ingredientName": "chicken leg", "categoryCN": "\u8089\u7c7b", "ingredientNameCN": "\u9e21\u817f"}
 
-        if action == "add" or action == "remove":
-            self.db_manager.update_inventory(user_id, ingredient_name, action)
+        # ================================
+        #   Nothing changed below
+        # ================================
 
-        result = self.db_manager.inventory().read(user_id)
-        ret = json.dumps(result)
-        return ret
+        # user_id = event["userId"]
+        # ingredient_name = event["ingredient"]
+        # action = event["action"]
 
+        # if action not in ["add", "remove"]:
+        #     raise ValueError(f"Invalid action: {action}")
+        # if not isinstance(ingredient_name, str):
+        #     raise ValueError(f"Invalid ingredient_name: {ingredient_name}")
+
+        # if action == "add" or action == "remove":
+        #     self.db_manager.update_inventory(user_id, ingredient_name, action)
+
+        # result = self.db_manager.inventory().read(user_id)
+        # ret = json.dumps(result)
+        # return ret
 
 # def handler(event, context):
 #     user_id = event["userId"]
@@ -34,9 +49,7 @@ class Inventory:
 #     return ret
 
 
-
-
-#data as a dictionary
+# data as a dictionary
 # def update_inventory(user_id, ingredient_name, action):
 #     #user_id = data["userId"]
 #     #ingredient_name = data["ingredient"]
@@ -73,8 +86,3 @@ class Inventory:
 #         json.dump(inventory, file)
 #
 #     return inventory
-
-
-
-
-
