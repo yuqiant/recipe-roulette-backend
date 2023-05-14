@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 from .inventory import Inventory
 from .user_settings import UserSettings
+=======
+from .ingredient import Ingredient
+>>>>>>> 89713ee (add unittest for models)
 
 
 class User:
@@ -33,5 +37,17 @@ class User:
             "settings": self.settings
         }.__str__()
 
+<<<<<<< HEAD
     def __repr__(self) -> str:
         return self.__str__()
+=======
+    def add_ingredient(self, ingredient: Ingredient):
+        # add error handling
+        self.inventory.add(ingredient)
+        # update db
+
+    def remove_ingredient(self, ingredient: Ingredient):
+        # add error handling
+        self.inventory.remove(ingredient)
+        # update db
+>>>>>>> 89713ee (add unittest for models)
