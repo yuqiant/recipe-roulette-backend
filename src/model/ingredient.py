@@ -17,6 +17,13 @@ class Ingredient:
     def todict(self) -> dict:
         return self.__dict__
 
+    @classmethod
+    def fromdict(cls, ingredient_dict: dict):
+        return cls(ingredient_dict['_id'], ingredient_dict['category'], ingredient_dict['ingredientName'], ingredient_dict['categoryCN'], ingredient_dict['ingredientNameCN'])
+
+    def todict(self) -> dict:
+        return self.__dict__
+
     def __str__(self) -> str:
         return self.todict().__str__()
 
