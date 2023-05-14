@@ -1,4 +1,4 @@
-from ingredient import Ingredient
+from .ingredient import Ingredient
 
 
 class User:
@@ -37,13 +37,3 @@ class User:
         # add error handling
         self.inventory.remove(ingredient)
         # update db
-
-
-# if __name__ == "__main__":
-    # from bson.objectid import ObjectId
-    # src_dict = {'userId': '1', 'inventory': [{'_id': ObjectId(
-    #     '645eabb31408d7bd1e4c4921'), 'category': '1', 'ingredientName': 'test', 'categoryCN': 'test', 'ingredientNameCN': 'test'}], 'settings': {}}
-    # user = User.fromdict(src_dict)
-    # user.remove_ingredient(Ingredient.fromdict({'_id': ObjectId(
-    #     '645eabb31408d7bd1e4c4921'), 'category': '1', 'ingredientName': 'test', 'categoryCN': 'test', 'ingredientNameCN': 'test'}))
-    # print(user)

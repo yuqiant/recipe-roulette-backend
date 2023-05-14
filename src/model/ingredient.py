@@ -27,11 +27,3 @@ class Ingredient:
         if not isinstance(__value, Ingredient):
             raise ValueError("Comparing Ingredient with an invalid type")
         return self._id == __value._id  # ObjectId can be compared with '=='
-
-
-# if __name__ == "__main__":
-#     id = ObjectId("645eabb31408d7bd1e4c4921")
-#     ingredient = Ingredient(id,
-#                             "蔬菜", "西瓜", "蔬菜", "西瓜")
-#     print(ingredient)
-#     print(ingredient.todict())

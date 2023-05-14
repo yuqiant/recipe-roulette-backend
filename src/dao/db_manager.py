@@ -23,6 +23,9 @@ class DBManager:
     def get_collection(self, collection_name):
         return self.__db.get_collection(collection_name)
 
+    def close(self):
+        self.__client.close()
+
     # def __users_collection(self):
     #     return self.__db.get_collection("user")
 
