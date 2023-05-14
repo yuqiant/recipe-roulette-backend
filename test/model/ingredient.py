@@ -10,29 +10,29 @@ class TestIngredient(unittest.TestCase):
             ObjectId("645eabb31408d7bd1e4c4921"), "Meat", "pork", "肉类", "猪肉")
         assert ingredient._id == ObjectId("645eabb31408d7bd1e4c4921")
         assert ingredient.category == "Meat"
-        assert ingredient.ingredientName == "pork"
-        assert ingredient.categoryCN == "肉类"
-        assert ingredient.ingredientNameCN == "猪肉"
+        assert ingredient.name == "pork"
+        assert ingredient.categoryZH == "肉类"
+        assert ingredient.nameZH == "猪肉"
 
     def test_ingredient_creation_fromdict(self):
         src_dict = {'_id': ObjectId(
-            '645eabb31408d7bd1e4c4921'), 'category': 'Meat', 'ingredientName': 'pork', 'categoryCN': '肉类', 'ingredientNameCN': '猪肉'}
+            '645eabb31408d7bd1e4c4921'), 'category': 'Meat', 'name': 'pork', 'categoryZH': '肉类', 'nameZH': '猪肉'}
         ingredient = Ingredient.fromdict(src_dict)
         assert ingredient._id == ObjectId("645eabb31408d7bd1e4c4921")
         assert ingredient.category == "Meat"
-        assert ingredient.ingredientName == "pork"
-        assert ingredient.categoryCN == "肉类"
-        assert ingredient.ingredientNameCN == "猪肉"
+        assert ingredient.name == "pork"
+        assert ingredient.categoryZH == "肉类"
+        assert ingredient.nameZH == "猪肉"
 
     def test_ingredient_todict(self):
         src_dict = {'_id': ObjectId(
-            '645eabb31408d7bd1e4c4921'), 'category': 'Meat', 'ingredientName': 'pork', 'categoryCN': '肉类', 'ingredientNameCN': '猪肉'}
+            '645eabb31408d7bd1e4c4921'), 'category': 'Meat', 'name': 'pork', 'categoryZH': '肉类', 'nameZH': '猪肉'}
         ingredient = Ingredient.fromdict(src_dict)
         assert ingredient.todict() == src_dict
 
     def test_ingredient_tostring(self):
         src_dict = {'_id': ObjectId(
-            '645eabb31408d7bd1e4c4921'), 'category': 'Meat', 'ingredientName': 'pork', 'categoryCN': '肉类', 'ingredientNameCN': '猪肉'}
+            '645eabb31408d7bd1e4c4921'), 'category': 'Meat', 'name': 'pork', 'categoryZH': '肉类', 'nameZH': '猪肉'}
         ingredient = Ingredient.fromdict(src_dict)
         assert str(
-            ingredient) == "{'_id': ObjectId('645eabb31408d7bd1e4c4921'), 'category': 'Meat', 'ingredientName': 'pork', 'categoryCN': '肉类', 'ingredientNameCN': '猪肉'}"
+            ingredient) == "{'_id': ObjectId('645eabb31408d7bd1e4c4921'), 'category': 'Meat', 'name': 'pork', 'categoryZH': '肉类', 'nameZH': '猪肉'}"
