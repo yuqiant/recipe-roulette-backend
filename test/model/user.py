@@ -16,19 +16,19 @@ class TestUser(unittest.TestCase):
 
     def test_user_creation_fromdict(self):
         src_dict = {'userId': '1', 'inventory': [{'_id': ObjectId(
-            '645eabb31408d7bd1e4c4921'), 'category': '1', 'ingredientName': 'test', 'categoryCN': 'test', 'ingredientNameCN': 'test'}], 'settings': {}}
+            '645eabb31408d7bd1e4c4921'), 'category': '1', 'name': 'test', 'categoryZH': 'test', 'nameZH': 'test'}], 'settings': {}}
         user = User.fromdict(src_dict)
         assert user.userId == "1"
         assert len(user.inventory) == 1
         ingredient = Ingredient.fromdict({'_id': ObjectId(
-            '645eabb31408d7bd1e4c4921'), 'category': '1', 'ingredientName': 'test', 'categoryCN': 'test', 'ingredientNameCN': 'test'})
+            '645eabb31408d7bd1e4c4921'), 'category': '1', 'name': 'test', 'categoryZH': 'test', 'nameZH': 'test'})
         assert ingredient in user.inventory
         user.inventory.remove(ingredient)
         assert len(user.inventory) == 0
 
     def test_user_todict(self):
         src_dict = {'userId': '1', 'inventory': [{'_id': ObjectId(
-            '645eabb31408d7bd1e4c4921'), 'category': '1', 'ingredientName': 'test', 'categoryCN': 'test', 'ingredientNameCN': 'test'}], 'settings': {}}
+            '645eabb31408d7bd1e4c4921'), 'category': '1', 'name': 'test', 'categoryZH': 'test', 'nameZH': 'test'}], 'settings': {}}
         user = User.fromdict(src_dict)
         user_dict = user.todict()
         assert user_dict.get('userId') == '1'
