@@ -19,7 +19,7 @@ class Ingredient:
 
     @classmethod
     def fromdict(cls, ingredient_dict: dict):
-        return cls(ingredient_dict['_id'], ingredient_dict['category'], ingredient_dict['ingredientName'], ingredient_dict['categoryCN'], ingredient_dict['ingredientNameCN'])
+        return cls(ingredient_dict['_id'], ingredient_dict['category'], ingredient_dict['name'], ingredient_dict['categoryZH'], ingredient_dict['nameZH'])
 
     def todict(self) -> dict:
         return self.__dict__
