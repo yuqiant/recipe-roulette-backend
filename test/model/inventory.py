@@ -14,11 +14,11 @@ class TestInventory(unittest.TestCase):
         inventory = Inventory()
 
         # adding using ObjectId
-        inventory.add_ingredient(ObjectId("645eabb31408d7bd1e4c4924"))
+        inventory.add(ObjectId("645eabb31408d7bd1e4c4924"))
         assert len(inventory) == 1
 
         # adding using full Ingredient (Ingredient content does not matter in our case)
-        inventory.add_ingredient(Ingredient(id=ObjectId(
+        inventory.add(Ingredient(id=ObjectId(
             "645eabb31408d7bd1e4c4926"), category="test", name="test", categoryZH="test", nameZH="test"))
         assert len(inventory) == 2
 
@@ -27,11 +27,11 @@ class TestInventory(unittest.TestCase):
             "645eabb31408d7bd1e4c4925"), ObjectId("645eabb31408d7bd1e4c4926")])
 
         # removing using ObjectId
-        inventory.remove_ingredient(ObjectId("645eabb31408d7bd1e4c4925"))
+        inventory.remove(ObjectId("645eabb31408d7bd1e4c4925"))
         assert len(inventory) == 2
 
         # removing using full Ingredient (Ingredient content does not matter in our case)
-        inventory.remove_ingredient(Ingredient(id=ObjectId(
+        inventory.remove(Ingredient(id=ObjectId(
             "645eabb31408d7bd1e4c4926"), category="test", name="test", categoryZH="test", nameZH="test"))
         assert len(inventory) == 1
 
@@ -40,8 +40,8 @@ class TestInventory(unittest.TestCase):
             "645eabb31408d7bd1e4c4925"), ObjectId("645eabb31408d7bd1e4c4926")])
 
         # check using ObjectId
-        assert inventory.has_ingredient(ObjectId("645eabb31408d7bd1e4c4925"))
+        assert ObjectId("645eabb31408d7bd1e4c4925") in inventory
 
         # check using full Ingredient (Ingredient content does not matter in our case)
-        assert inventory.has_ingredient(Ingredient(id=ObjectId(
-            "645eabb31408d7bd1e4c4926"), category="test", name="test", categoryZH="test", nameZH="test"))
+        assert Ingredient(id=ObjectId(
+            "645eabb31408d7bd1e4c4926"), category="test", name="test", categoryZH="test", nameZH="test") in inventory
