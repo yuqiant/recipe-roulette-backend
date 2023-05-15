@@ -1,49 +1,36 @@
-from ingredient import Ingredient
+from .ingredient import Ingredient
+from .inventory import Inventory
 
 
 class User:
 
-    def __init__(self, userId: str, inventory: set = set(), settings: dict = {}) -> None:
-        self.userId = userId
-        # perhaps consider creating an inventory class?
+    def __init__(self, _id: str, inventory: Inventory = Inventory(), settings: dict = {}) -> None:
+        if not isinstance(inventory, Inventory):
+            raise TypeError("inventory must be of type Inventory")
+        self._id = _id
         self.inventory = inventory
         self.settings = settings
 
     @classmethod
     def fromdict(cls, user_dict: dict):
         # process inventory
-        inventory = set()
-        for ingredient in user_dict['inventory']:
-            inventory.add(Ingredient.fromdict(ingredient))
-        return cls(user_dict['userId'], inventory,
+        inventory = Inventory(user_dict['inventory'])
+        return cls(user_dict['_id'], inventory,
                    user_dict['settings'])
 
     def todict(self) -> dict:
-        return self.__dict__
+        return {
+            "_id": self._id,
+            "inventory": list(self.inventory),
+            "settings": self.settings
+        }
 
     def __str__(self) -> str:
         return {
-            "userId": self.userId,
-            "inventory": [ingredient.todict() for ingredient in self.inventory],
+            "_id": self._id,
+            "inventory": self.inventory,
             "settings": self.settings
         }.__str__()
 
-    def add_ingredient(self, ingredient: Ingredient):
-        # add error handling
-        self.inventory.add(ingredient)
-        # update db
-
-    def remove_ingredient(self, ingredient: Ingredient):
-        # add error handling
-        self.inventory.remove(ingredient)
-        # update db
-
-
-# if __name__ == "__main__":
-    # from bson.objectid import ObjectId
-    # src_dict = {'userId': '1', 'inventory': [{'_id': ObjectId(
-    #     '645eabb31408d7bd1e4c4921'), 'category': '1', 'ingredientName': 'test', 'categoryCN': 'test', 'ingredientNameCN': 'test'}], 'settings': {}}
-    # user = User.fromdict(src_dict)
-    # user.remove_ingredient(Ingredient.fromdict({'_id': ObjectId(
-    #     '645eabb31408d7bd1e4c4921'), 'category': '1', 'ingredientName': 'test', 'categoryCN': 'test', 'ingredientNameCN': 'test'}))
-    # print(user)
+    def __repr__(self) -> str:
+        return self.__str__()
