@@ -22,39 +22,31 @@ class Inventory(set):
         return cls(ObjectId(ingredient_id)
                    for ingredient_id in inventory_dict.get('ingredients', []))
 
-    def add_ingredient(self, ingredient: ObjectId | Ingredient) -> None:
+    def add(self, ingredient: ObjectId | Ingredient) -> None:
         if isinstance(ingredient, Ingredient):
-            self.add(ingredient._id)
+            super().add(ingredient._id)
         else:
-            self.add(ingredient)
+            super().add(ingredient)
 
-    def remove_ingredient(self, ingredient: ObjectId | Ingredient) -> None:
+    def remove(self, ingredient: ObjectId | Ingredient) -> None:
         if isinstance(ingredient, Ingredient):
-            self.remove(ingredient._id)
+            super().remove(ingredient._id)
         else:
-            self.remove(ingredient)
-
-    def has_ingredient(self, ingredient: ObjectId | Ingredient) -> bool:
-        if isinstance(ingredient, Ingredient):
-            return ingredient._id in self
-        else:
-            return ingredient in self
+            super().remove(ingredient)
 
     def get_all(self) -> set[ObjectId]:
         return [ingredient for ingredient in self]
 
+    def __contains__(self, __o: object) -> bool:
+        if isinstance(__o, Ingredient):
+            return super().__contains__(__o._id)
+        elif isinstance(__o, ObjectId):
+            return super().__contains__(__o)
+        else:
+            return False
+
     def __str__(self) -> str:
-        return '\n'.join(map(str, self))
+        return super().__str__()
 
     def __repr__(self) -> str:
-        return self.__str__()
-
-
-# if __name__ == '__main__':
-    # inv = Inventory()
-    # inv.add_ingredient(ObjectId('645eabb31408d7bd1e4c4921'))
-    # inv.add_ingredient(ObjectId('645eabb31408d7bd1e4c4922'))
-    # inv.add_ingredient(ObjectId('645eabb31408d7bd1e4c4923'))
-    # inv.remove_ingredient(Ingredient(
-    #     ObjectId('645eabb31408d7bd1e4c4923'), "cat", "name", "catCN", "nameCN"))
-    # print(inv.get_all())
+        return super().__repr__()

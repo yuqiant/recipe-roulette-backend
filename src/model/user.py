@@ -1,20 +1,20 @@
 from .ingredient import Ingredient
+from .inventory import Inventory
 
 
 class User:
 
-    def __init__(self, userId: str, inventory: set = set(), settings: dict = {}) -> None:
+    def __init__(self, userId: str, inventory: Inventory = Inventory(), settings: dict = {}) -> None:
+        if not isinstance(inventory, Inventory):
+            raise TypeError("inventory must be of type Inventory")
         self.userId = userId
-        # perhaps consider creating an inventory class?
         self.inventory = inventory
         self.settings = settings
 
     @classmethod
     def fromdict(cls, user_dict: dict):
         # process inventory
-        inventory = set()
-        for ingredient in user_dict['inventory']:
-            inventory.add(Ingredient.fromdict(ingredient))
+        inventory = Inventory(user_dict['inventory'])
         return cls(user_dict['userId'], inventory,
                    user_dict['settings'])
 
@@ -24,16 +24,16 @@ class User:
     def __str__(self) -> str:
         return {
             "userId": self.userId,
-            "inventory": [ingredient.todict() for ingredient in self.inventory],
+            "inventory": self.inventory,
             "settings": self.settings
         }.__str__()
 
-    def add_ingredient(self, ingredient: Ingredient):
-        # add error handling
-        self.inventory.add(ingredient)
-        # update db
+    # def add_ingredient(self, ingredient: Ingredient):
+    #     # add error handling
+    #     self.inventory.add(ingredient)
+    #     # update db
 
-    def remove_ingredient(self, ingredient: Ingredient):
-        # add error handling
-        self.inventory.remove(ingredient)
-        # update db
+    # def remove_ingredient(self, ingredient: Ingredient):
+    #     # add error handling
+    #     self.inventory.remove(ingredient)
+    #     # update db
