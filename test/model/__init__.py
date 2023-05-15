@@ -1,3 +1,3 @@
-from .ingredient import TestIngredient
-from .user import TestUser
-from .inventory import TestInventory
+from .test_ingredient import TestIngredient
+from .test_user import TestUser
+from .test_inventory import TestInventory
