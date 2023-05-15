@@ -28,12 +28,5 @@ class User:
             "settings": self.settings
         }.__str__()
 
-    # def add_ingredient(self, ingredient: Ingredient):
-    #     # add error handling
-    #     self.inventory.add(ingredient)
-    #     # update db
-
-    # def remove_ingredient(self, ingredient: Ingredient):
-    #     # add error handling
-    #     self.inventory.remove(ingredient)
-    #     # update db
+    def __repr__(self) -> str:
+        return self.__str__()

@@ -20,6 +20,9 @@ class Ingredient:
     def __str__(self) -> str:
         return self.todict().__str__()
 
+    def __repr__(self) -> str:
+        return self.__str__()
+
     def __hash__(self) -> int:
         return hash(self._id)
 
