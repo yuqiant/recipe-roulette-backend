@@ -1,15 +1,20 @@
 import json
 from dao import DBManager
 from routes import UserRoute
-from model import User
 # from inventory.inventory import Inventory
+
+# router = Router()
+# router.get('/ingredient', ingredients_handler.handle_get_all(query_string))
+# router.get('/ingredient?id=some_id', ingredients_handler.handle_get_by_id(query_string))
 
 
 def handler(event, context):
+    print(event)
+
     # main entry point for lambda
     # return scrape.handler({"keyword": "egg"}, None)
     # return json.dumps({"message": "To be implemented"})
-    db_manager = DBManager(db_name="recipe-roulette")
+    # db_manager = DBManager(db_name="recipe-roulette")
     # create a router to handle routing to the correct handler
     # inventory = Inventory(db_manager)
     # return inventory.handler(event, context)
