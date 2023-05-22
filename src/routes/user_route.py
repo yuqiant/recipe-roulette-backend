@@ -26,8 +26,15 @@ class UserRoute():
     # GET user's settings
     # GET /user/settings?userId=some-id
     def handle_get_user_settings(self, user_id):
-        pass
+        user = User(user_id)
+        result = self.db_manager.get_collection("users").find_one({"settings": user.settings})
+        return result
 
     # POST /user/settings?userId=some-id
     def handle_update_user_settings(self, user_id, user_settings):
-        pass
+        user = User(user_id)
+        result = self.db_manager.get_collection("users").update_one(filter={"_id": user_id},
+                                                                    update={"settings": user_settings})
+        return result
+
+
