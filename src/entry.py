@@ -28,12 +28,13 @@ if __name__ == '__main__':
     # id = ObjectId(res.get("_id"))
     # print(id)
 
-    db_manager = DBManager("recipe-roulette")
+    db_manager = DBManager("ingredients")
     user_route = UserRoute(db_manager)
-    user = user_route.handle_get_user("124")
-    user.inventory.add(ObjectId("5c2d5d0f2b8d9f1b0f9f8c5e"))
-    result = user_route.handle_update_user("124", user.todict())
-    print(result)
+    user = user_route.handle_create_default_user("101010")
+    #user = user_route.handle_get_user("124")
+    #user.inventory.add(ObjectId("5c2d5d0f2b8d9f1b0f9f8c5e"))
+    #result = user_route.handle_update_user("124", user.todict())
+    #print(result)
 
     # event = {"userId": "20394", "ingredient": "egg", "action": "add"}
     # print(handler(event, None))
