@@ -4,7 +4,7 @@ from pymongo.results import UpdateResult, InsertOneResult
 from typing import Any
 
 
-class UserRoute():
+class UserRoute:
 
     def __init__(self, db_manager: DBManager):
         self.db_manager = db_manager
