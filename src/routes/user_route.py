@@ -2,7 +2,7 @@ from dao import DBManager
 from model import User
 
 
-class UserRoute():
+class UserRoute:
 
     def __init__(self, db_manager: DBManager):
         self.db_manager = db_manager
