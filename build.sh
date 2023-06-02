@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo "Install dependencies"
+python -m pip install --upgrade pip
+pip install -r requirements.txt --target ./package
+
 echo "Running Test"
 python -m unittest discover -s ./test || exit 1
 
@@ -8,8 +12,6 @@ rm dist.zip
 find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 
 echo "Build starting"
-python -m pip install --upgrade pip
-pip install -r requirements.txt --target ./package
 cd package || exit 1
 zip -r ../dist.zip .
 cd ../src || exit 1
