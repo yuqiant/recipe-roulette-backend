@@ -9,30 +9,30 @@ class TestIngredient(unittest.TestCase):
         ingredient = Ingredient(
             ObjectId("645eabb31408d7bd1e4c4921"), "Meat", "pork", "肉类", "猪肉")
         self.assertEqual(ingredient._id, ObjectId("645eabb31408d7bd1e4c4921"))
-        self.assertEqual(ingredient.category, "Meat")
-        self.assertEqual(ingredient.name, "pork")
+        self.assertEqual(ingredient.categoryEN, "Meat")
+        self.assertEqual(ingredient.nameEN, "pork")
         self.assertEqual(ingredient.categoryZH, "肉类")
         self.assertEqual(ingredient.nameZH, "猪肉")
 
     def test_ingredient_creation_fromdict(self):
         src_dict = {'_id': ObjectId(
-            '645eabb31408d7bd1e4c4921'), 'category': 'Meat', 'name': 'pork', 'categoryZH': '肉类', 'nameZH': '猪肉'}
+            '645eabb31408d7bd1e4c4921'), 'categoryEN': 'Meat', 'nameEN': 'pork', 'categoryZH': '肉类', 'nameZH': '猪肉'}
         ingredient = Ingredient.fromdict(src_dict)
         self.assertEqual(ingredient._id, ObjectId("645eabb31408d7bd1e4c4921"))
-        self.assertEqual(ingredient.category, "Meat")
-        self.assertEqual(ingredient.name, "pork")
+        self.assertEqual(ingredient.categoryEN, "Meat")
+        self.assertEqual(ingredient.nameEN, "pork")
         self.assertEqual(ingredient.categoryZH, "肉类")
         self.assertEqual(ingredient.nameZH, "猪肉")
 
     def test_ingredient_todict(self):
         src_dict = {'_id': ObjectId(
-            '645eabb31408d7bd1e4c4921'), 'category': 'Meat', 'name': 'pork', 'categoryZH': '肉类', 'nameZH': '猪肉'}
+            '645eabb31408d7bd1e4c4921'), 'categoryEN': 'Meat', 'nameEN': 'pork', 'categoryZH': '肉类', 'nameZH': '猪肉'}
         ingredient = Ingredient.fromdict(src_dict)
         self.assertEqual(ingredient.todict(), src_dict)
 
     def test_ingredient_tostring(self):
         src_dict = {'_id': ObjectId(
-            '645eabb31408d7bd1e4c4921'), 'category': 'Meat', 'name': 'pork', 'categoryZH': '肉类', 'nameZH': '猪肉'}
+            '645eabb31408d7bd1e4c4921'), 'categoryEN': 'Meat', 'nameEN': 'pork', 'categoryZH': '肉类', 'nameZH': '猪肉'}
         ingredient = Ingredient.fromdict(src_dict)
         self.assertEqual(str(ingredient),
-                         "{'_id': ObjectId('645eabb31408d7bd1e4c4921'), 'category': 'Meat', 'name': 'pork', 'categoryZH': '肉类', 'nameZH': '猪肉'}")
+                         "{'_id': ObjectId('645eabb31408d7bd1e4c4921'), 'categoryEN': 'Meat', 'nameEN': 'pork', 'categoryZH': '肉类', 'nameZH': '猪肉'}")

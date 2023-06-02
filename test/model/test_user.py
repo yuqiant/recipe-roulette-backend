@@ -22,7 +22,7 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user._id, "1")
         self.assertEqual(len(user.inventory), 1)
         ingredient = Ingredient.fromdict({'_id': ObjectId(
-            '645eabb31408d7bd1e4c4921'), 'category': '1', 'name': 'test', 'categoryZH': 'test', 'nameZH': 'test'})
+            '645eabb31408d7bd1e4c4921'), 'categoryEN': '1', 'nameEN': 'test', 'categoryZH': 'test', 'nameZH': 'test'})
         self.assertTrue(ingredient in user.inventory)
         user.inventory.remove(ingredient)
         self.assertEqual(len(user.inventory), 0)

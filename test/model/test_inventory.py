@@ -19,7 +19,7 @@ class TestInventory(unittest.TestCase):
 
         # adding using full Ingredient (Ingredient content does not matter in our case)
         inventory.add(Ingredient(id=ObjectId(
-            "645eabb31408d7bd1e4c4926"), category="test", name="test", categoryZH="test", nameZH="test"))
+            "645eabb31408d7bd1e4c4926"), categoryEN="test", nameEN="test", categoryZH="test", nameZH="test"))
         self.assertEqual(len(inventory), 2)
 
     def test_inventory_remove_ingredient(self):
@@ -32,7 +32,7 @@ class TestInventory(unittest.TestCase):
 
         # removing using full Ingredient (Ingredient content does not matter in our case)
         inventory.remove(Ingredient(id=ObjectId(
-            "645eabb31408d7bd1e4c4926"), category="test", name="test", categoryZH="test", nameZH="test"))
+            "645eabb31408d7bd1e4c4926"), categoryEN="test", nameEN="test", categoryZH="test", nameZH="test"))
         self.assertEqual(len(inventory), 1)
 
     def test_inventory_has_ingredient(self):
@@ -44,4 +44,4 @@ class TestInventory(unittest.TestCase):
 
         # check using full Ingredient (Ingredient content does not matter in our case)
         self.assertTrue(Ingredient(id=ObjectId(
-            "645eabb31408d7bd1e4c4926"), category="test", name="test", categoryZH="test", nameZH="test") in inventory)
+            "645eabb31408d7bd1e4c4926"), categoryEN="test", nameEN="test", categoryZH="test", nameZH="test") in inventory)
