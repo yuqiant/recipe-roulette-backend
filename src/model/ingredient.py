@@ -3,16 +3,16 @@ from bson.objectid import ObjectId
 
 class Ingredient:
 
-    def __init__(self,  id: ObjectId, category: str, name: str, categoryZH: str, nameZH: str) -> None:
+    def __init__(self,  id: ObjectId, categoryEN: str, nameEN: str, categoryZH: str, nameZH: str) -> None:
         self._id = id
-        self.category = category
-        self.name = name
+        self.categoryEN = categoryEN
+        self.nameEN = nameEN
         self.categoryZH = categoryZH
         self.nameZH = nameZH
 
     @classmethod
     def fromdict(cls, ingredient_dict: dict):
-        return cls(ingredient_dict['_id'], ingredient_dict['category'], ingredient_dict['name'], ingredient_dict['categoryZH'], ingredient_dict['nameZH'])
+        return cls(ingredient_dict['_id'], ingredient_dict['categoryEN'], ingredient_dict['nameEN'], ingredient_dict['categoryZH'], ingredient_dict['nameZH'])
 
     def todict(self) -> dict:
         return self.__dict__
