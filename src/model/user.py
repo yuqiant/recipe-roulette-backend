@@ -1,10 +1,10 @@
-from .ingredient import Ingredient
 from .inventory import Inventory
+from .user_settings import UserSettings
 
 
 class User:
 
-    def __init__(self, _id: str, inventory: Inventory = Inventory(), settings: dict = {}) -> None:
+    def __init__(self, _id: str, inventory: Inventory = Inventory(), settings: UserSettings = UserSettings()) -> None:
         if not isinstance(inventory, Inventory):
             raise TypeError("inventory must be of type Inventory")
         self._id = _id
@@ -15,14 +15,15 @@ class User:
     def fromdict(cls, user_dict: dict):
         # process inventory
         inventory = Inventory(user_dict['inventory'])
+        settings = UserSettings.fromdict(user_dict['settings'])
         return cls(user_dict['_id'], inventory,
-                   user_dict['settings'])
+                   settings)
 
     def todict(self) -> dict:
         return {
             "_id": self._id,
             "inventory": list(self.inventory),
-            "settings": self.settings
+            "settings": self.settings.todict()
         }
 
     def __str__(self) -> str:
