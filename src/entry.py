@@ -3,12 +3,13 @@ from dao import DBManager
 from routes import UserRoute
 # from inventory.inventory import Inventory
 
-# router = Router()
-# router.get('/ingredient', ingredients_handler.handle_get_all(query_string))
+router = Router()
+router.get('/ingredient', ingredients_handler.handle_get_all(query_string))
 # router.get('/ingredient?id=some_id', ingredients_handler.handle_get_by_id(query_string))
 
 
 def handler(event, context):
+    router.handle(event)
     print(event)
 
     # main entry point for lambda
