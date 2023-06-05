@@ -11,9 +11,11 @@ class UserRoute():
 
     # POST /user
     # body {userId: some-id}
-    def handle_create_default_user(self, _: dict, body: dict) -> Any:
+    def handle_create_user(self, _: dict, body: dict) -> Any:
         user_id = body.get("userId")
+        user_language = body.get("language")
         user = User(user_id)
+        user.settings = UserSettings(language=user_language)
         result = self.db_manager.get_collection(
             "users").insert_one(user.todict())
         return result.inserted_id
