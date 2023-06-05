@@ -8,7 +8,7 @@ router = Router()
 db_manager = DBManager("recipe-roulette")
 user_route = UserRoute(db_manager)
 # router.get('/ingredient', ingredients_handler.handle_get_all(query_string))
-router.post('/user', user_route.handle_create_default_user)
+router.post('/user', user_route.handle_create_user)
 router.get('/user/settings', user_route.handle_get_user_settings)
 
 
