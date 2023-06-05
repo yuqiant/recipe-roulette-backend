@@ -58,13 +58,28 @@ class Router():
         if method == 'GET':
             handler = self.__routes['get'].get(path, None)
         elif method == 'POST':
-            handler = self.__routes['post'][path]
+            handler = self.__routes['post'].get(path, None)
         else:
             handler = None
-        output = handler(query_parameters, body) if handler is not None else {
-            "statusCode": 404,
-            "message": "No route found"}
-        return json_util.dumps(output)
+
+        if handler is not None:
+            statusCode = 200
+            data = handler(query_parameters, body)
+        else:
+            statusCode = 404
+            data = {
+                "message": "No route found"}
+
+        response = {
+            "statusCode": statusCode,
+            "headers": {
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': '*'
+            },
+            "data": data
+        }
+        return json_util.dumps(response)
 
     # GET /ingredients
     # get all ingredients
