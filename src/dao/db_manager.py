@@ -10,7 +10,6 @@ class DBManager:
         # read mongodb_uri_dev from .env file
         env = os.getenv("ENV")
         uri = os.getenv(f"MONGODB_URI_{env}")
-        print(f"Connecting to MongoDB in {env}")
         # Create a new client and connect to the server
         self.__client = MongoClient(
             host=uri, maxPoolSize=10, appname="recipe_roulette")
