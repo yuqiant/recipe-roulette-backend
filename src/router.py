@@ -1,5 +1,6 @@
 from urllib.parse import parse_qs
 from typing import Callable
+from bson import json_util
 import re
 
 
@@ -8,7 +9,9 @@ class Router():
     def __init__(self):
         self.__routes = {
             "get": {},
-            "post": {}
+            "post": {},
+            "put": {},
+            "delete": {}
         }
 
     def parse_event(event):
@@ -36,24 +39,32 @@ class Router():
 
     def get(self, path: str, handler: Callable):
         self.__routes['get'][path] = handler
-        # self.__get_routes[path] = handler
 
     def post(self, path: str, handler: Callable):
         self.__routes['post'][path] = handler
-        # self.__post_routes[path] = handler
+
+    def put(self, path: str, handler: Callable):
+        self.__routes['put'][path] = handler
+
+    def delete(self, path: str, handler: Callable):
+        self.__routes['delete'][path] = handler
 
     def handle(self, event):
         parsed_event = Router.parse_event(event)
         method = parsed_event['method']
         path = parsed_event['path']
         query_parameters = parsed_event['query_parameters']
-        body = parsed_event['body']
+        body = parsed_event.get('body', {})
         if method == 'GET':
-            handler = self.__routes['get'][path]
-            return handler(query_parameters)
+            handler = self.__routes['get'].get(path, None)
         elif method == 'POST':
             handler = self.__routes['post'][path]
-            return handler(query_parameters, body)
+        else:
+            handler = None
+        output = handler(query_parameters, body) if handler is not None else {
+            "statusCode": 404,
+            "message": "No route found"}
+        return json_util.dumps(output)
 
     # GET /ingredients
     # get all ingredients
