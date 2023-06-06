@@ -1,6 +1,8 @@
+import json
 from urllib.parse import parse_qs
 from typing import Callable
-import re
+from routes.recipe_route import RecipesRoute
+
 
 
 class Router():
@@ -8,7 +10,10 @@ class Router():
     def __init__(self):
         self.__routes = {
             "get": {},
-            "post": {}
+            #"post": {}
+            "post": {
+                '/recipes': RecipesRoute.handle_get_recipes_by_keyword
+            }
         }
 
     def parse_event(event):
@@ -50,10 +55,32 @@ class Router():
         body = parsed_event['body']
         if method == 'GET':
             handler = self.__routes['get'][path]
-            return handler(query_parameters)
+            if handler is not None:
+                response_body = handler(query_parameters)
+                status_code = 200
+            else:
+                response_body = {'message': 'This is not a POST request.'}
+                status_code = 400
+            #return handler(query_parameters)
         elif method == 'POST':
             handler = self.__routes['post'][path]
-            return handler(query_parameters, body)
+            if handler is not None:
+                response_body = handler(query_parameters, body)
+                status_code = 200
+            else:
+                response_body = {'message': 'No handler for this POST request.'}
+                status_code = 404
+
+            #return handler(query_parameters, body)
+
+        # return the response
+        response = {
+            'statusCode': status_code,
+            'headers': {'Content-Type': 'application/json'},
+            'body': json.dumps(response_body)
+        }
+
+        return response
 
     # GET /ingredients
     # get all ingredients
