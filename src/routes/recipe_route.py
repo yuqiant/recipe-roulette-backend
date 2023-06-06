@@ -1,6 +1,7 @@
 from dao import DBManager
 from recipe import scrapeNew
 
+
 class RecipesRoute:
     def __init__(self, db_manager: DBManager):
         self.db_manager = db_manager
@@ -10,10 +11,10 @@ class RecipesRoute:
     # body: {
     #   ingredients: [string]
     # }
-    def handle_get_recipes_by_keyword(self, body: dict)->dict:
-        #keyword = body.get('ingredients', '')
+    def handle_get_recipes_by_keyword(self, body: dict) -> dict:
+        # keyword = body.get('ingredients', '')
         keyword = body['ingredients']
-        #print(keyword)
+        # print(keyword)
         if not keyword:
             return {'error': 'No keyword provided.'}
 
@@ -29,6 +30,3 @@ class RecipesRoute:
         #
         # result = scrapeNew.scrape(keywordZH)
         # return result
-
-
-
