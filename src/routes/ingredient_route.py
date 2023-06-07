@@ -9,13 +9,14 @@ class IngredientRoute:
 
     # GET /ingredients
     def handle_get_all(self) -> list[Ingredient]:
-        return [Ingredient.fromdict(x) for x in self.get_collection("ingredients").find({})]
+        return [Ingredient.fromdict(x) for x in self.db_manager.get_collection("ingredients").find({})]
 
     # GET /ingredients?id=some_id
     def handle_get_by_id(self, id: ObjectId) -> Ingredient | None:
-        doc = self.get_collection("ingredients").find_one({"_id": id})
+        doc = self.db_manager.get_collection("ingredients").find_one({"_id": id})
         return Ingredient.fromdict(doc) if doc else None
 
     # GET /
     def handle_get_by_ids(self, ids: list[ObjectId]) -> list[Ingredient]:
-        return [Ingredient.fromdict(x) for x in self.get_collection("ingredients").find({"_id": {"$in": ids}})]
+        return [Ingredient.fromdict(x) for x in self.db_manager.get_collection("ingredients").find({"_id": {"$in": ids}})]
+
