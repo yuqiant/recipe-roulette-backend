@@ -11,6 +11,7 @@ class RecipesRoute:
     # body: {
     #   ingredients: [string]
     # }
+
     def handle_get_recipes_by_keyword(self, body: dict) -> dict:
         # keyword = body.get('ingredients', '')
         keyword = body['ingredients']
