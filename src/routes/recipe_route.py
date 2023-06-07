@@ -11,13 +11,18 @@ class RecipesRoute:
     #   ingredients: [string]
     # }
     def handle_get_recipes_by_keyword(self, body: dict)->dict:
+<<<<<<< HEAD
         #keyword = body.get('ingredients', '')
         keyword = body['ingredients']
         #print(keyword)
+=======
+        keyword = body.get('keyword', '')
+>>>>>>> 593c3ed25b0e1d898973cd275cacd2d8c71ce39a
         if not keyword:
             return {'error': 'No keyword provided.'}
 
         result = scrapeNew.scrape(keyword)
+<<<<<<< HEAD
         print(result)
         return result
         # keyword = body['ingredients']
@@ -32,3 +37,6 @@ class RecipesRoute:
 
 
 
+=======
+        return result
+>>>>>>> 593c3ed25b0e1d898973cd275cacd2d8c71ce39a
