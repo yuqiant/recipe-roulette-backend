@@ -2,6 +2,7 @@ import json
 from urllib.parse import parse_qs
 from typing import Callable
 from bson import json_util
+import json
 import re
 
 
@@ -22,7 +23,9 @@ class Router():
         path = http['path']
         method = http['method']
         query_parameters = parse_qs(query_string)
-        body = event['body'] if "body" in event else {}
+        body = event.get('body', {})
+        if type(body) is str:
+            body = json.loads(body)
         return {
             "method": method,
             "path": path,
@@ -55,13 +58,14 @@ class Router():
         method = parsed_event['method']
         path = parsed_event['path']
         query_parameters = parsed_event['query_parameters']
-        body = parsed_event.get('body', {})
-        if method == 'GET':
-            handler = self.__routes['get'].get(path, None)
-        elif method == 'POST':
-            handler = self.__routes['post'].get(path, None)
-        else:
-            handler = None
+        body = parsed_event.get('body')
+        match method:
+            case 'GET':
+                handler = self.__routes['get'].get(path, None)
+            case 'POST':
+                handler = self.__routes['post'].get(path, None)
+            case _:
+                handler = None
 
         if handler is not None:
             statusCode = 200
@@ -69,15 +73,16 @@ class Router():
         else:
             statusCode = 404
             data = {
-                "message": "No route found"}
+                "message": "Not found"
+            }
 
         response = {
             "statusCode": statusCode,
-            "headers": {
-                'Access-Control-Allow-Headers': '*',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': '*'
-            },
+            # "headers": {
+            #     'Access-Control-Allow-Headers': 'Content-Type',
+            #     'Access-Control-Allow-Origin': '*',
+            #     'Access-Control-Allow-Methods': '*'
+            # },
             "data": data
         }
         return json_util.dumps(response)

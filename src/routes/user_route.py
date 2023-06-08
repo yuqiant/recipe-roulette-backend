@@ -10,7 +10,7 @@ class UserRoute:
         self.db_manager = db_manager
 
     # POST /user
-    # body {userId: some-id}
+    # body {userId: some-id, language: user_language}
     def handle_create_user(self, _: dict, body: dict) -> Any:
         user_id = body.get("userId")
         user_language = body.get("language")

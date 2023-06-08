@@ -10,6 +10,7 @@ user_route = UserRoute(db_manager)
 # router.get('/ingredient', ingredients_handler.handle_get_all(query_string))
 router.post('/user', user_route.handle_create_user)
 router.get('/user/settings', user_route.handle_get_user_settings)
+router.post('/user/settings', user_route.handle_update_user_settings)
 
 
 def handler(event, _):
@@ -18,7 +19,6 @@ def handler(event, _):
 
 
 # if __name__ == '__main__':
-    # from dao import DBManager
     # from bson.objectid import ObjectId
     # from bson import json_util
     # db = DBManager("recipe-roulette").get_collection("ingredients")
